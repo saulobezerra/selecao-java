@@ -1,6 +1,5 @@
 package com.saulo.desafio.services;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -42,30 +41,30 @@ public class UsuarioService {
 	}
 	
 	private void udateData(Usuario usuario, Usuario obj) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		usuario.setNome(obj.getNome());
-		usuario.setSobrenome(obj.getSobrenome());
-		usuario.setEmail(obj.getEmail());
-		try {
-			usuario.setDataNascimento(sdf.parse(dataParaString(obj.getDataNascimento())));
-		} catch (ParseException e) {
-			System.out.println("UpdateData - Erro no formato da data de nascimento: " + e.getMessage());
-		}
+//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//		usuario.setNome(obj.getNome());
+//		usuario.setSobrenome(obj.getSobrenome());
+//		usuario.setEmail(obj.getEmail());
+//		try {
+		usuario.setDataNascimento(obj.getDataNascimento());
+//		} catch (ParseException e) {
+//			System.out.println("UpdateData - Erro no formato da data de nascimento: " + e.getMessage());
+//		}
 	}
 
 	public Usuario gravaUsuario(Usuario usuario) {
-		Usuario user = new Usuario();
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-		Date dataNascimento;
-		try {
-			dataNascimento = formato.parse(dataParaString(usuario.getDataNascimento()));
-			
-			user = new Usuario(null, usuario.getNome(), usuario.getSobrenome(), usuario.getEmail(),
-					dataNascimento);
-		} catch (ParseException e) {
-			System.out.println("Erro no formato da data de nascimento: " + e.getMessage());
-		}
-		return insert(user);
+//		Usuario user = new Usuario();
+//		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+//		Date dataNascimento;
+//		try {
+//			dataNascimento = formato.parse(dataParaString(usuario.getDataNascimento()));
+//			
+//			user = new Usuario(null, usuario.getNome(), usuario.getSobrenome(), usuario.getEmail(),
+//					dataNascimento);
+//		} catch (ParseException e) {
+//			System.out.println("Erro no formato da data de nascimento: " + e.getMessage());
+//		}
+		return insert(usuario);
 	}
 	
 	public String dataParaString(Date data) {

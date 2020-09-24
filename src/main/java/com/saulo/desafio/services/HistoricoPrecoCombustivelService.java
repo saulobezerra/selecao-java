@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,30 @@ public class HistoricoPrecoCombustivelService {
 	}
 	
 	public HistoricoPrecoCombustivel insert(HistoricoPrecoCombustivel obj) {
+//		System.out.println(obj.getDataDaColeta());
+//		if (obj.getLocalidade().getId() == null) {			
+//			Localidade local = localService.findByMunicipio(obj.getLocalidade().getMunicipio());
+//			if (local == null) {
+//				local = new Localidade(null, obj.getLocalidade().getRegiao(), obj.getLocalidade().getEstado(), obj.getLocalidade().getMunicipio());
+//				localService.insert(local);
+//			}
+//		}
+//		
+//		if (obj.getProduto().getId() == null) {
+//			Produto produto = prodService.findByNomeProduto(obj.getProduto().getNome());
+//			if (produto == null) {
+//				produto = new Produto(null, obj.getProduto().getNome(), obj.getProduto().getValorDeVenda(), obj.getProduto().getValorDeCompra());
+//				prodService.insert(produto);
+//			}
+//		}
+//		
+//		if (obj.getRevendedora().getId() == null) {			
+//			Revendedora rev = revService.findByNomeRevendedora(obj.getRevendedora().getNome());
+//			if (rev == null) {
+//				rev = new Revendedora(null, obj.getRevendedora().getNome(), obj.getRevendedora().getCnpj(), obj.getRevendedora().getBandeira());
+//				revService.insert(rev);
+//			}
+//		}
 		return repository.save(obj);
 	}
 
@@ -62,6 +87,11 @@ public class HistoricoPrecoCombustivelService {
 		hpc.setLocalidade(obj.getLocalidade());
 		hpc.setProduto(obj.getProduto());
 		hpc.setRevendedora(obj.getRevendedora());
+	}
+	
+	public String dataParaString(Date data) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(data);
 	}
 	
 	public void lerArquivoCSV(String path) {
@@ -147,5 +177,31 @@ public class HistoricoPrecoCombustivelService {
 			System.out.println("Erro ao formatar a data da coleta:" + e.getMessage() + " linha: " + numLine);
 		}		
 	}
+	
+	public Double mediaDePrecoBaseadoNoMunicipio() {
+		return 0d;
+	}
+	
+	public HistoricoPrecoCombustivel todasInformacoesPorRegiao () {
+		return null;
+	}
+	
+	public HistoricoPrecoCombustivel dadosAgrupadosPorDistribuidora () {
+		return null;
+	}
+	
+	public HistoricoPrecoCombustivel dadosAgrupadosPorDataColeta () {
+		return null;
+	}
+	
+	public Double mediaValorCompraEVendaPorMunicipio() {
+		return 0d;
+	}
+	
+	public Double mediaValorCompraEVendaPorBandeira() {
+		return 0d;
+	}
+	
+	
 }
 
