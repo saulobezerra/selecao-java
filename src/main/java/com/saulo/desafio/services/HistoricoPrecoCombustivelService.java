@@ -178,8 +178,8 @@ public class HistoricoPrecoCombustivelService {
 		}		
 	}
 	
-	public Double mediaDePrecoBaseadoNoMunicipio() {
-		return 0d;
+	public Double mediaDePrecoBaseadoNoMunicipio(String nomeMunicipio) {
+		return repository.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio);
 	}
 	
 	public HistoricoPrecoCombustivel todasInformacoesPorRegiao () {
@@ -194,12 +194,24 @@ public class HistoricoPrecoCombustivelService {
 		return null;
 	}
 	
-	public Double mediaValorCompraEVendaPorMunicipio() {
-		return 0d;
+	public List<String> mediaValorCompraEVendaPorMunicipio() {
+		List<String> retornoSql = repository.mediaValorCompraEVendaPorMunicipio();
+		return retornoSql;
 	}
 	
-	public Double mediaValorCompraEVendaPorBandeira() {
-		return 0d;
+	public List<String> mediaValorCompraEVendaPorBandeira() {
+		List<String> retornoSql = repository.mediaValorCompraEVendaPorBandeira();
+//		String [] dados;
+//		
+//		if (retornoSql == null)
+//			retornoSql = ""; 
+//		
+//		if (!"".equals(retornoSql)) {
+//			dados = retornoSql.split(",");
+//			retornoSql = "Valor de compra: " + dados[0] + " | Valor de venda: " + dados[1];
+//		}
+		
+		return retornoSql;
 	}
 	
 	

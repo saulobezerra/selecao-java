@@ -76,9 +76,9 @@ public class HistoricoPrecoCombustivelResource {
 	}
 	
 	@ApiOperation(value = "Retorna média de preço de combustível com base no nome do município")
-	@GetMapping(value = "/mediaDePrecoBaseadoNoMunicipio")
-	public ResponseEntity<Double> mediaDePrecoBaseadoNoMunicipio() {
-		return ResponseEntity.ok().body(0.0);
+	@GetMapping(value = "/mediaDePrecoBaseadoNoMunicipio/{nomeMunicipio}")
+	public ResponseEntity<Double> mediaDePrecoBaseadoNoMunicipio(@PathVariable String nomeMunicipio) {
+		return ResponseEntity.ok().body(hpcService.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio));
 	}
 	
 	@ApiOperation(value = "Retorna todas as informações importadas por sigla da região")
@@ -104,14 +104,14 @@ public class HistoricoPrecoCombustivelResource {
 	
 	@ApiOperation(value = "Retorna o valor médio do valor da compra e do valor da venda por município")
 	@GetMapping(value = "/mediaValorCompraEVendaPorMunicipio")
-	public ResponseEntity<Double> mediaValorCompraEVendaPorMunicipio() {
-		return ResponseEntity.ok().body(0.0);
+	public ResponseEntity<List<String>> mediaValorCompraEVendaPorMunicipio() {
+		return ResponseEntity.ok().body(hpcService.mediaValorCompraEVendaPorMunicipio());
 	}
 	
 	@ApiOperation(value = "Retorna o valor médio do valor da compra e do valor da venda por bandeira")
 	@GetMapping(value = "/mediaValorCompraEVendaPorBandeira")
-	public ResponseEntity<Double> mediaValorCompraEVendaPorBandeira() {
-		return ResponseEntity.ok().body(0.0);
+	public ResponseEntity<List<String>> mediaValorCompraEVendaPorBandeira() {
+		return ResponseEntity.ok().body(hpcService.mediaValorCompraEVendaPorBandeira());
 	}
 
 }
