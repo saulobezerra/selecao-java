@@ -15,12 +15,22 @@ public interface HistoricoPrecoCombustivelRepository extends JpaRepository<Histo
 			"join Localidade as L on L.id = HPC.localidade.id " +
 			"where L.municipio = (?1)")
 	Double mediaDePrecoBaseadoNoMunicipio(String nomeMunicipio);
-//	
-//	HistoricoPrecoCombustivel todasInformacoesPorRegiao ();
-//	
-//	HistoricoPrecoCombustivel dadosAgrupadosPorDistribuidora ();
-//	
-//	HistoricoPrecoCombustivel dadosAgrupadosPorDataColeta () ;
+
+	@Query("select HPC " + 
+			"from HistoricoPrecoCombustivel as HPC " + 
+			"join Localidade as L on L.id = HPC.localidade.id " +
+			"order by L.regiao")
+	List<HistoricoPrecoCombustivel> todasInformacoesPorRegiao ();
+	
+	@Query("select HPC " + 
+			"from HistoricoPrecoCombustivel as HPC " + 
+			"join Revendedora as R on R.id = HPC.revendedora.id " +
+			"order by R.nome")
+	List<HistoricoPrecoCombustivel> dadosAgrupadosPorDistribuidora ();
+	
+	@Query("select hpc from HistoricoPrecoCombustivel hpc " + 
+			"order by hpc.dataDaColeta")
+	List<HistoricoPrecoCombustivel> dadosAgrupadosPorDataColeta () ;
 
 	@Query("select L.municipio, avg(P.valorDeVenda), avg(P.valorDeCompra) " + 
 			"from Produto as P " + 

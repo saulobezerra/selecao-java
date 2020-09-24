@@ -83,23 +83,20 @@ public class HistoricoPrecoCombustivelResource {
 	
 	@ApiOperation(value = "Retorna todas as informações importadas por sigla da região")
 	@GetMapping(value = "/todasInformacoesPorRegiao")
-	public ResponseEntity<HistoricoPrecoCombustivel> todasInformacoesPorRegiao() {
-		HistoricoPrecoCombustivel obj = new HistoricoPrecoCombustivel();
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<List<HistoricoPrecoCombustivel>> todasInformacoesPorRegiao() {
+		return ResponseEntity.ok().body(hpcService.todasInformacoesPorRegiao());
 	}
 	
-	@ApiOperation(value = "dados agrupados por distribuidora")
+	@ApiOperation(value = "Retorna os dados agrupados por distribuidora")
 	@GetMapping(value = "/dadosAgrupadosPorDistribuidora")
-	public ResponseEntity<HistoricoPrecoCombustivel> dadosAgrupadosPorDistribuidora() {
-		HistoricoPrecoCombustivel obj = new HistoricoPrecoCombustivel();
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<List<HistoricoPrecoCombustivel>> dadosAgrupadosPorDistribuidora() {
+		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDistribuidora());
 	}
 	
-	@ApiOperation(value = "Retorna dados agrupados por data da coleta")
+	@ApiOperation(value = "Retorna os dados agrupados por data da coleta")
 	@GetMapping(value = "/dadosAgrupadosPorDataColeta")
-	public ResponseEntity<HistoricoPrecoCombustivel> dadosAgrupadosPorDataColeta() {
-		HistoricoPrecoCombustivel obj = new HistoricoPrecoCombustivel();
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<List<HistoricoPrecoCombustivel>> dadosAgrupadosPorDataColeta() {
+		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDataColeta());
 	}
 	
 	@ApiOperation(value = "Retorna o valor médio do valor da compra e do valor da venda por município")

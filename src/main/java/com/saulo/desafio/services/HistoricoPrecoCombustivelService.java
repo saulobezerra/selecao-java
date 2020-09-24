@@ -182,16 +182,16 @@ public class HistoricoPrecoCombustivelService {
 		return repository.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio);
 	}
 	
-	public HistoricoPrecoCombustivel todasInformacoesPorRegiao () {
-		return null;
+	public List<HistoricoPrecoCombustivel> todasInformacoesPorRegiao () {
+		return repository.todasInformacoesPorRegiao();
 	}
 	
-	public HistoricoPrecoCombustivel dadosAgrupadosPorDistribuidora () {
-		return null;
+	public List<HistoricoPrecoCombustivel> dadosAgrupadosPorDistribuidora () {
+		return repository.dadosAgrupadosPorDistribuidora();
 	}
 	
-	public HistoricoPrecoCombustivel dadosAgrupadosPorDataColeta () {
-		return null;
+	public List<HistoricoPrecoCombustivel> dadosAgrupadosPorDataColeta () {
+		return repository.dadosAgrupadosPorDataColeta();
 	}
 	
 	public List<String> mediaValorCompraEVendaPorMunicipio() {
