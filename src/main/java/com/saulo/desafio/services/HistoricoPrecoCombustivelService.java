@@ -127,6 +127,7 @@ public class HistoricoPrecoCombustivelService {
 			
 		} catch(IOException e) {
 			System.out.println("lerArquivoCSV - Error: " + e.getMessage());
+			throw new ResourceNotFoundException(e.getMessage());
 		}
 	}
 	
@@ -221,13 +222,11 @@ public class HistoricoPrecoCombustivelService {
 			line = new StringBuilder(linha);
 			numLine++;				
 		}
-		System.out.println("Tempo de leitura e listas: "+(System.currentTimeMillis()-tempoInicio));
-		tempoInicio = System.currentTimeMillis();
 		prodService.insertAll(listProds);
 		localService.insertAll(listLocais);
 		revService.insertAll(listRev);
 		repository.saveAll(listHpc);
-		System.out.println("Tempo de inserção no banco: "+(System.currentTimeMillis()-tempoInicio));
+		System.out.println("Tempo da importação: "+(System.currentTimeMillis()-tempoInicio));
 	}
 	
 }

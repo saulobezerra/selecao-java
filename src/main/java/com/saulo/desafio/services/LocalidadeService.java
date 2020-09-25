@@ -37,7 +37,7 @@ public class LocalidadeService {
 
 	public Localidade findById(Long id) {
 		Optional<Localidade> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Id " + id));
 	}
 
 	public void delete(Long id) {
@@ -57,6 +57,10 @@ public class LocalidadeService {
 		localidade.setEstado(obj.getEstado());
 		localidade.setMunicipio(obj.getMunicipio());
 		localidade.setRegiao(obj.getRegiao());		
+	}
+	
+	public List<String> findAllMunicipios() {
+		return repository.findAllMunicipios();
 	}
 
 }

@@ -36,7 +36,7 @@ public class RevendedoraService {
 
 	public Revendedora findById(Long id) {
 		Optional<Revendedora> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Id " + id));
 	}
 
 	public void delete(Long id) {

@@ -35,7 +35,7 @@ public class ProdutoService {
 
 	public Produto findById(Long id) {
 		Optional<Produto> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return obj.orElseThrow(() -> new ResourceNotFoundException("Id " + id));
 	}
 
 	public void delete(Long id) {

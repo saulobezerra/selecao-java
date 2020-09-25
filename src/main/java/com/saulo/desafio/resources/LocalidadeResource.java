@@ -72,5 +72,12 @@ public class LocalidadeResource {
 		localidade = localidadeService.update(id, localidade);
 		return ResponseEntity.ok().body(localidade);
 	}
+	
+	@ApiOperation(value = "Retorna uma lista com todos os municípios cadastrados")
+	@GetMapping(value = "/listaMunicipios")
+	public ResponseEntity<List<String>> findAllMunicipios() {
+		List<String> list = localidadeService.findAllMunicipios();
+		return ResponseEntity.ok().body(list);
+	}
 
 }

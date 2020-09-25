@@ -78,8 +78,13 @@ public class HistoricoPrecoCombustivelResource {
 	
 	@ApiOperation(value = "Importa dados do arquivo CSV")
 	@PostMapping(value = "/importaCSV")
-	public ResponseEntity <Void> importaCSV(@RequestBody String nomeDoArquivo) {
-		System.out.println("Lendo arquivo " + nomeDoArquivo);
+	public ResponseEntity <Void> importaCSV(
+			@ApiParam(value="Caminho do arquivo CSV a ser importado. Exemplo: C:\\Users\\saulo\\Desktop\\arquivo.csv.\n"
+					+ " AVISO: A importação do arquivo para a base de dados está demora entre 2 e 3 minutos.", 
+			required = true)
+			@RequestBody String nomeDoArquivo) {
+		
+		System.out.println("Importando arquivo... " + nomeDoArquivo);
 		hpcService.lerArquivoCSV(nomeDoArquivo);
 		System.out.println("Terminou");
 		return ResponseEntity.noContent().build();
@@ -88,7 +93,8 @@ public class HistoricoPrecoCombustivelResource {
 	@ApiOperation(value = "Retorna média de preço de combustível com base no nome do município")
 	@GetMapping(value = "/mediaDePrecoBaseadoNoMunicipio/{nomeMunicipio}")
 	public ResponseEntity<Double> mediaDePrecoBaseadoNoMunicipio(
-			@ApiParam(value="Nome do município o qual quer consultar.", example = "1", required = true)
+			@ApiParam(value="Nome do município o qual quer consultar. Você pode consultar a lista de municipios em Localidade-Resource", 
+			example = "1", required = true)
 			@PathVariable String nomeMunicipio) {
 		return ResponseEntity.ok().body(hpcService.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio));
 	}
