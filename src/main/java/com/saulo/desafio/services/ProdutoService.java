@@ -48,10 +48,7 @@ public class ProdutoService {
 		return repository.save(produto);
 	}
 	
-	private void udateData(Produto produto, Produto obj) {
-		if(repository.findByNome(obj.getNome().toUpperCase()) != null)
-			throw new ResourceDataConflit("Produto " + obj.getNome() + " já cadastrado");
-		
+	private void udateData(Produto produto, Produto obj) {		
 		produto.setNome(obj.getNome());
 		produto.setValorDeCompra(obj.getValorDeCompra());
 		produto.setValorDeVenda(obj.getValorDeVenda());		

@@ -1,7 +1,10 @@
 package com.saulo.desafio.dtos;
 
-public class ValorMedioPorMunicipioDTO {
+import java.io.Serializable;
 
+public class ValorMedioPorMunicipioDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String municipio;
 	private Double valorDeVenda;
 	private Double valorDeCompra;

@@ -2,8 +2,11 @@ package com.saulo.desafio.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.saulo.desafio.entities.HistoricoPrecoCombustivel;
 
@@ -16,21 +19,23 @@ public interface HistoricoPrecoCombustivelRepository extends JpaRepository<Histo
 			"where L.municipio = (?1)")
 	Double mediaDePrecoBaseadoNoMunicipio(String nomeMunicipio);
 
+	@Transactional(readOnly = true)
 	@Query("select HPC " + 
 			"from HistoricoPrecoCombustivel as HPC " + 
 			"join Localidade as L on L.id = HPC.localidade.id " +
 			"order by L.regiao")
-	List<HistoricoPrecoCombustivel> todasInformacoesPorRegiao ();
+	Page<HistoricoPrecoCombustivel> todasInformacoesPorRegiao(PageRequest pageRequest);
 	
+	@Transactional(readOnly = true)
 	@Query("select HPC " + 
 			"from HistoricoPrecoCombustivel as HPC " + 
 			"join Revendedora as R on R.id = HPC.revendedora.id " +
 			"order by R.nome")
-	List<HistoricoPrecoCombustivel> dadosAgrupadosPorDistribuidora ();
+	Page<HistoricoPrecoCombustivel> dadosAgrupadosPorDistribuidora (PageRequest pageRequest);
 	
 	@Query("select hpc from HistoricoPrecoCombustivel hpc " + 
 			"order by hpc.dataDaColeta")
-	List<HistoricoPrecoCombustivel> dadosAgrupadosPorDataColeta () ;
+	Page<HistoricoPrecoCombustivel> dadosAgrupadosPorDataColeta (PageRequest pageRequest);
 
 	@Query("select L.municipio, avg(P.valorDeVenda), avg(P.valorDeCompra) " + 
 			"from Produto as P " + 

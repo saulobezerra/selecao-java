@@ -50,10 +50,7 @@ public class LocalidadeService {
 		return repository.save(localidade);
 	}
 	
-	private void udateData(Localidade localidade, Localidade obj) {
-		if(repository.findByMunicipio(obj.getMunicipio().toUpperCase()) != null)
-			throw new ResourceDataConflit("O municipio " + obj.getMunicipio() + " já está cadastrado");
-		
+	private void udateData(Localidade localidade, Localidade obj) {		
 		localidade.setEstado(obj.getEstado());
 		localidade.setMunicipio(obj.getMunicipio());
 		localidade.setRegiao(obj.getRegiao());		

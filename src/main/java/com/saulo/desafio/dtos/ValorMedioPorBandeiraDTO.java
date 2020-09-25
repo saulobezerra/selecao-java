@@ -1,6 +1,9 @@
 package com.saulo.desafio.dtos;
 
-public class ValorMedioPorBandeiraDTO {
+import java.io.Serializable;
+
+public class ValorMedioPorBandeiraDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private String bandeira;
 	private Double valorDeVenda;

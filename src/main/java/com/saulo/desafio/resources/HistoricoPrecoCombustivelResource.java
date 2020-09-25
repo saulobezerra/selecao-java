@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -94,27 +96,39 @@ public class HistoricoPrecoCombustivelResource {
 	@GetMapping(value = "/mediaDePrecoBaseadoNoMunicipio/{nomeMunicipio}")
 	public ResponseEntity<Double> mediaDePrecoBaseadoNoMunicipio(
 			@ApiParam(value="Nome do município o qual quer consultar. Você pode consultar a lista de municipios em Localidade-Resource", 
-			example = "1", required = true)
+			example = "", required = true)
 			@PathVariable String nomeMunicipio) {
 		return ResponseEntity.ok().body(hpcService.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio));
 	}
 	
 	@ApiOperation(value = "Retorna todas as informações importadas por sigla da região")
-	@GetMapping(value = "/todasInformacoesPorRegiao")
-	public ResponseEntity<List<HistoricoPrecoCombustivel>> todasInformacoesPorRegiao() {
-		return ResponseEntity.ok().body(hpcService.todasInformacoesPorRegiao());
+	@GetMapping(value = "/todasInformacoesPorRegiao/page")
+	public ResponseEntity<Page<HistoricoPrecoCombustivel>> todasInformacoesPorRegiao(
+			@RequestParam(value="page", defaultValue = "0") Integer page, 
+			@RequestParam(value="page", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value="page", defaultValue = "id") String orderBy,
+			@RequestParam(value="page", defaultValue = "ASC") String direction) {
+		return ResponseEntity.ok().body(hpcService.todasInformacoesPorRegiao(page, linesPerPage, orderBy, direction));
 	}
 	
 	@ApiOperation(value = "Retorna os dados agrupados por distribuidora")
-	@GetMapping(value = "/dadosAgrupadosPorDistribuidora")
-	public ResponseEntity<List<HistoricoPrecoCombustivel>> dadosAgrupadosPorDistribuidora() {
-		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDistribuidora());
+	@GetMapping(value = "/dadosAgrupadosPorDistribuidora/page")
+	public ResponseEntity<Page<HistoricoPrecoCombustivel>> dadosAgrupadosPorDistribuidora(
+			@RequestParam(value="page", defaultValue = "0") Integer page, 
+			@RequestParam(value="page", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value="page", defaultValue = "id") String orderBy,
+			@RequestParam(value="page", defaultValue = "ASC") String direction) {
+		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDistribuidora(page, linesPerPage, orderBy, direction));
 	}
 	
 	@ApiOperation(value = "Retorna os dados agrupados por data da coleta")
-	@GetMapping(value = "/dadosAgrupadosPorDataColeta")
-	public ResponseEntity<List<HistoricoPrecoCombustivel>> dadosAgrupadosPorDataColeta() {
-		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDataColeta());
+	@GetMapping(value = "/dadosAgrupadosPorDataColeta/page")
+	public ResponseEntity<Page<HistoricoPrecoCombustivel>> dadosAgrupadosPorDataColeta(
+			@RequestParam(value="page", defaultValue = "0") Integer page, 
+			@RequestParam(value="page", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value="page", defaultValue = "id") String orderBy,
+			@RequestParam(value="page", defaultValue = "ASC") String direction) {
+		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDataColeta(page, linesPerPage, orderBy, direction));
 	}
 	
 	@ApiOperation(value = "Retorna o valor médio do valor da compra e do valor da venda por município")

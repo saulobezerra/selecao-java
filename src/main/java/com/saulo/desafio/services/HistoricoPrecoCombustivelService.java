@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.saulo.desafio.dtos.ValorMedioPorBandeiraDTO;
@@ -78,16 +81,22 @@ public class HistoricoPrecoCombustivelService {
 		return repository.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio.toUpperCase());
 	}
 	
-	public List<HistoricoPrecoCombustivel> todasInformacoesPorRegiao () {
-		return repository.todasInformacoesPorRegiao();
+	public Page<HistoricoPrecoCombustivel> todasInformacoesPorRegiao (Integer page, Integer linesPerPage, String orderBy,
+			String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repository.todasInformacoesPorRegiao(pageRequest);
 	}
 	
-	public List<HistoricoPrecoCombustivel> dadosAgrupadosPorDistribuidora () {
-		return repository.dadosAgrupadosPorDistribuidora();
+	public Page<HistoricoPrecoCombustivel> dadosAgrupadosPorDistribuidora (Integer page, Integer linesPerPage, String orderBy,
+			String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repository.dadosAgrupadosPorDistribuidora(pageRequest);
 	}
 	
-	public List<HistoricoPrecoCombustivel> dadosAgrupadosPorDataColeta () {
-		return repository.dadosAgrupadosPorDataColeta();
+	public Page<HistoricoPrecoCombustivel> dadosAgrupadosPorDataColeta (Integer page, Integer linesPerPage, String orderBy,
+			String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repository.dadosAgrupadosPorDataColeta(pageRequest);
 	}
 	
 	public List<ValorMedioPorMunicipioDTO> mediaValorCompraEVendaPorMunicipio() {		

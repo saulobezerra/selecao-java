@@ -1,36 +1,40 @@
 package com.saulo.desafio.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "Necessárion informar o campo 'nome'.")
 	private String nome;
+	@NotBlank(message = "Necessárion informar o campo 'sobrenome'.")
 	private String sobrenome;
-	private String email;
-	private Date dataNascimento;
+	@NotBlank(message = "Necessárion informar o campo 'email'.")
+	private String email;	
+	@NotBlank(message = "Necessárion informar o campo 'senha'.")
+	private String senha;
 
 	public Usuario() {
 		
 	}
-
-	public Usuario(Long id, String nome, String sobrenome, String email, Date dataNascimento) {
+	
+	public Usuario(Long id, String nome, String sobrenome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.email = email;
-		this.dataNascimento = dataNascimento;
+		this.senha = senha;
 	}
 
 	public Long getId() {
@@ -60,13 +64,13 @@ public class Usuario implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
+	
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override

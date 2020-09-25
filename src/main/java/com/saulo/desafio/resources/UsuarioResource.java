@@ -2,6 +2,7 @@ package com.saulo.desafio.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.saulo.desafio.dtos.UsuarioDTO;
 import com.saulo.desafio.entities.Usuario;
 import com.saulo.desafio.services.UsuarioService;
 
@@ -32,31 +34,35 @@ public class UsuarioResource {
 
 	@ApiOperation(value = "Retorna uma lista com todos os usuários cadastrados")
 	@GetMapping
-	public ResponseEntity<List<Usuario>> findAll() {
+	public ResponseEntity<List<UsuarioDTO>> findAll() {
 		List<Usuario> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<UsuarioDTO> listDto = list.stream().map(usuario -> new UsuarioDTO(usuario)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@ApiOperation(value = "Retorna um determinado usuário especificado pelo id")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Usuario> findById(
+	public ResponseEntity<UsuarioDTO> findById(
 			@ApiParam(value="Número inteiro que represente o id do usuário.", example = "1", required = true) 
 			@PathVariable Long id) {
 		
-		Usuario obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		Usuario user = service.findById(id);
+		UsuarioDTO userDto = new UsuarioDTO(user); 
+		return ResponseEntity.ok().body(userDto);
 	}
 	
 	@ApiOperation(value = "Cadastra um novo usuário")
 	@PostMapping
-	public ResponseEntity<Usuario> insert(
+	public ResponseEntity<UsuarioDTO> insert(
 			@ApiParam(required = true)
 			@RequestBody Usuario usuario) {
 		
 		usuario = service.insert(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
 				buildAndExpand(usuario.getId()).toUri();
-		return ResponseEntity.created(uri).body(usuario);
+		
+		UsuarioDTO userDto = new UsuarioDTO(usuario); 
+		return ResponseEntity.created(uri).body(userDto);
 	}
 	
 	@ApiOperation(value = "Exclui um determinado usuário especificado pelo id")
@@ -71,13 +77,14 @@ public class UsuarioResource {
 	
 	@ApiOperation(value = "Atualiza os dados de um determinado usuário")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Usuario> update(
+	public ResponseEntity<UsuarioDTO> update(
 			@ApiParam(value="Número inteiro que represente o id do usuário.", example = "1", required = true)
 			@PathVariable Long id, 
 			@ApiParam(value="Objeto json com dados do usuário.", required = true)
 			@RequestBody Usuario usuario) {
 		
 		usuario = service.update(id, usuario);
-		return ResponseEntity.ok().body(usuario);
+		UsuarioDTO userDto = new UsuarioDTO(usuario); 
+		return ResponseEntity.ok().body(userDto);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.saulo.desafio.entities.Usuario;
@@ -17,16 +18,24 @@ import com.saulo.desafio.services.exceptions.ResourceNotFoundException;
 public class UsuarioService {
 
 	@Autowired
+	private BCryptPasswordEncoder pe;
+	
+	@Autowired
 	private UsuarioRepository repository;
 	
 	public List<Usuario> findAll() {
 		return repository.findAll();
 	}
 	
-	public Usuario insert(Usuario obj) {
+	public Usuario insert(Usuario obj) {		
+		
 		if(repository.findByEmail(obj.getEmail()) != null)
 			throw new ResourceDataConflit("E-mail " + obj.getEmail() + " já cadastrado");
 		
+		if(obj.getSenha() == null || "".equals(obj.getSenha()))
+			throw new ResourceNotFoundException("Senha não informada.");
+		
+		obj.setSenha(pe.encode(obj.getSenha()));
 		return repository.save(obj);
 	}
 
@@ -52,7 +61,6 @@ public class UsuarioService {
 		usuario.setEmail(obj.getEmail());
 		usuario.setNome(usuario.getNome());
 		usuario.setSobrenome(usuario.getSobrenome());
-		usuario.setDataNascimento(obj.getDataNascimento());
 	}
 	
 	public String dataParaString(Date data) {

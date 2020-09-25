@@ -49,10 +49,7 @@ public class RevendedoraService {
 		return repository.save(revendedora);
 	}
 	
-	private void udateData(Revendedora revendedora, Revendedora obj) {
-		if(repository.findByCnpj(obj.getCnpj()) != null)
-			throw new ResourceDataConflit("O CNPJ " + obj.getCnpj() + " está em uso");
-		
+	private void udateData(Revendedora revendedora, Revendedora obj) {		
 		revendedora.setNome(obj.getNome());
 		revendedora.setCnpj(obj.getCnpj());
 		revendedora.setBandeira(obj.getBandeira());		

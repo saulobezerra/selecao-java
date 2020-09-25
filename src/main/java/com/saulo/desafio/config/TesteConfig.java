@@ -21,6 +21,7 @@ import com.saulo.desafio.repositories.RevendedoraRepository;
 @Profile("test")
 public class TesteConfig implements CommandLineRunner {
 	
+	
 	@Autowired
 	private ProdutoRepository prodRepositorio;
 	
@@ -35,7 +36,7 @@ public class TesteConfig implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		/*
+		
 		Localidade local1 = new Localidade(null, "NE", "PB", "JOAO PESSOA");
 		Localidade local2 = new Localidade(null, "SE", "SP", "SAO PAULO");
 		Localidade local3 = new Localidade(null, "N", "AM", "MANAUS");
@@ -46,7 +47,7 @@ public class TesteConfig implements CommandLineRunner {
 		Produto p3 = new Produto(null, "GNV", 2.20, 2.50);
 		prodRepositorio.saveAll(Arrays.asList(p1,p2,p3));
 		
-		Revendedora rev1 = new Revendedora(null, "REVENDEDORA 1", "012345678901234", "RAIZEN");
+		Revendedora rev1 = new Revendedora(null, "REVENDEDORA 1", "012345678901234", "RAIZEN");		
 		Revendedora rev2 = new Revendedora(null, "REVENDEDORA 2", "012345678901235", "PETROBRAS");
 		Revendedora rev3 = new Revendedora(null, "REVENDEDORA 3", "012345678901236", "BRANCA");
 		revRepositorio.saveAll(Arrays.asList(rev1, rev2, rev3));
@@ -54,8 +55,11 @@ public class TesteConfig implements CommandLineRunner {
 		HistoricoPrecoCombustivel hpc1 = new HistoricoPrecoCombustivel(null, new Date(), local1, p1, rev1);
 		HistoricoPrecoCombustivel hpc2 = new HistoricoPrecoCombustivel(null, new Date(), local2, p3, rev3);
 		HistoricoPrecoCombustivel hpc3 = new HistoricoPrecoCombustivel(null, new Date(), local3, p2, rev2);
-		hpcRepositorio.saveAll(Arrays.asList(hpc1, hpc2, hpc3));
-		*/
+		HistoricoPrecoCombustivel hpc4 = new HistoricoPrecoCombustivel(null, new Date(), local3, p2, rev1);
+		HistoricoPrecoCombustivel hpc5 = new HistoricoPrecoCombustivel(null, new Date(), local3, p2, rev1);
+		HistoricoPrecoCombustivel hpc6 = new HistoricoPrecoCombustivel(null, new Date(), local3, p2, rev2);
+		hpcRepositorio.saveAll(Arrays.asList(hpc1, hpc2, hpc3, hpc4, hpc5, hpc6));
+		
 	}
 
 }
