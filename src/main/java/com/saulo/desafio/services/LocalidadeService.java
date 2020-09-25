@@ -23,7 +23,7 @@ public class LocalidadeService {
 	
 	public Localidade insert(Localidade obj) {
 		if(repository.findByMunicipio(obj.getMunicipio().toUpperCase()) != null)
-			new ResourceDataConflit("O municipio " + obj.getMunicipio() + " já está cadastrado");
+			throw new ResourceDataConflit("O municipio " + obj.getMunicipio() + " já está cadastrado");
 		
 		obj.setMunicipio(obj.getMunicipio().toUpperCase());
 		obj.setEstado(obj.getEstado().toUpperCase());
@@ -52,7 +52,7 @@ public class LocalidadeService {
 	
 	private void udateData(Localidade localidade, Localidade obj) {
 		if(repository.findByMunicipio(obj.getMunicipio().toUpperCase()) != null)
-			new ResourceDataConflit("O municipio " + obj.getMunicipio() + " já está cadastrado");
+			throw new ResourceDataConflit("O municipio " + obj.getMunicipio() + " já está cadastrado");
 		
 		localidade.setEstado(obj.getEstado());
 		localidade.setMunicipio(obj.getMunicipio());

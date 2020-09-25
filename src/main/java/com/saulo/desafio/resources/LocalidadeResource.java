@@ -20,6 +20,7 @@ import com.saulo.desafio.services.LocalidadeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api( description = "Recursos para CRUD de revendedora de combustível")
 @RestController
@@ -38,7 +39,9 @@ public class LocalidadeResource {
 	
 	@ApiOperation(value = "Retorna um localidade especificada pelo Id")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Localidade> findById(@PathVariable Long id) {
+	public ResponseEntity<Localidade> findById(
+			@ApiParam(value="Número inteiro que represente o id da localidade.", example = "1", required = true)
+			@PathVariable Long id) {
 		Localidade obj = localidadeService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -54,14 +57,18 @@ public class LocalidadeResource {
 	
 	@ApiOperation(value = "Exclui uma localidade")
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity <Void> delete(@PathVariable Long id) {
+	public ResponseEntity <Void> delete(
+			@ApiParam(value="Número inteiro que represente o id da localidade.", example = "1", required = true)
+			@PathVariable Long id) {
 		localidadeService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@ApiOperation(value = "Edita uma localidade")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Localidade> update(@PathVariable Long id, @RequestBody Localidade localidade) {
+	public ResponseEntity<Localidade> update(
+			@ApiParam(value="Número inteiro que represente o id da localidade.", example = "1", required = true)
+			@PathVariable Long id, @RequestBody Localidade localidade) {
 		localidade = localidadeService.update(id, localidade);
 		return ResponseEntity.ok().body(localidade);
 	}

@@ -22,6 +22,7 @@ import com.saulo.desafio.services.HistoricoPrecoCombustivelService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api(description="Recursos para consulta de dados da comercialização de combustíveis importados do CSV.")
 @RestController
@@ -40,7 +41,9 @@ public class HistoricoPrecoCombustivelResource {
 	
 	@ApiOperation(value = "Retorna um determinado registro de histórico de preço de combustível")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<HistoricoPrecoCombustivel> findById(@PathVariable Long id) {
+	public ResponseEntity<HistoricoPrecoCombustivel> findById(
+			@ApiParam(value="Número inteiro que represente o id de um registro de histórico.", example = "1", required = true)
+			@PathVariable Long id) {
 		HistoricoPrecoCombustivel obj = hpcService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -56,14 +59,19 @@ public class HistoricoPrecoCombustivelResource {
 	
 	@ApiOperation(value = "Exclui um registro de histórico de preço de combustível")
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity <Void> delete(@PathVariable Long id) {
+	public ResponseEntity <Void> delete(
+			@ApiParam(value="Número inteiro que represente o id de um registro de histórico.", example = "1", required = true)
+			@PathVariable Long id) {
 		hpcService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@ApiOperation(value = "Atualiza um registro de histórico de preço de combustível")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<HistoricoPrecoCombustivel> update(@PathVariable Long id, @RequestBody HistoricoPrecoCombustivel hpc) {
+	public ResponseEntity<HistoricoPrecoCombustivel> update(
+			@ApiParam(value="Número inteiro que represente o id de um registro de histórico.", example = "1", required = true)
+			@PathVariable Long id, 
+			@RequestBody HistoricoPrecoCombustivel hpc) {
 		hpc = hpcService.update(id, hpc);
 		return ResponseEntity.ok().body(hpc);
 	}
@@ -79,7 +87,9 @@ public class HistoricoPrecoCombustivelResource {
 	
 	@ApiOperation(value = "Retorna média de preço de combustível com base no nome do município")
 	@GetMapping(value = "/mediaDePrecoBaseadoNoMunicipio/{nomeMunicipio}")
-	public ResponseEntity<Double> mediaDePrecoBaseadoNoMunicipio(@PathVariable String nomeMunicipio) {
+	public ResponseEntity<Double> mediaDePrecoBaseadoNoMunicipio(
+			@ApiParam(value="Nome do município o qual quer consultar.", example = "1", required = true)
+			@PathVariable String nomeMunicipio) {
 		return ResponseEntity.ok().body(hpcService.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio));
 	}
 	

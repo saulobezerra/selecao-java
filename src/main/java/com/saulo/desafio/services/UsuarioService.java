@@ -25,7 +25,7 @@ public class UsuarioService {
 	
 	public Usuario insert(Usuario obj) {
 		if(repository.findByEmail(obj.getEmail()) != null)
-			new ResourceDataConflit("E-mail " + obj.getEmail() + "já cadastrado");
+			throw new ResourceDataConflit("E-mail " + obj.getEmail() + " já cadastrado");
 		
 		return repository.save(obj);
 	}
@@ -47,7 +47,7 @@ public class UsuarioService {
 	
 	private void udateData(Usuario usuario, Usuario obj) {
 		if(repository.findByEmail(obj.getEmail()) != null)
-			new ResourceDataConflit(obj.getEmail());
+			throw new ResourceDataConflit(obj.getEmail());
 		
 		usuario.setEmail(obj.getEmail());
 		usuario.setNome(usuario.getNome());

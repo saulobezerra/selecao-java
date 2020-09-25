@@ -23,7 +23,7 @@ public class ProdutoService {
 	
 	public Produto insert(Produto obj) {
 		if(repository.findByNome(obj.getNome().toUpperCase()) != null)
-			new ResourceDataConflit("Produto " + obj.getNome() + " já cadastrado");
+			throw new ResourceDataConflit("Produto " + obj.getNome() + " já cadastrado");
 		
 		obj.setNome(obj.getNome().toUpperCase());
 		return repository.save(obj);
@@ -50,7 +50,7 @@ public class ProdutoService {
 	
 	private void udateData(Produto produto, Produto obj) {
 		if(repository.findByNome(obj.getNome().toUpperCase()) != null)
-			new ResourceDataConflit("Produto " + obj.getNome() + " já cadastrado");
+			throw new ResourceDataConflit("Produto " + obj.getNome() + " já cadastrado");
 		
 		produto.setNome(obj.getNome());
 		produto.setValorDeCompra(obj.getValorDeCompra());

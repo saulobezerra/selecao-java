@@ -23,7 +23,7 @@ public class RevendedoraService {
 	
 	public Revendedora insert(Revendedora obj) {
 		if(repository.findByCnpj(obj.getCnpj()) != null)
-			new ResourceDataConflit("O CNPJ " + obj.getCnpj() + " já cadastrado");
+			throw new ResourceDataConflit("O CNPJ " + obj.getCnpj() + " já cadastrado");
 		
 		obj.setBandeira(obj.getBandeira().toUpperCase());
 		obj.setNome(obj.getNome().toUpperCase());
@@ -50,6 +50,9 @@ public class RevendedoraService {
 	}
 	
 	private void udateData(Revendedora revendedora, Revendedora obj) {
+		if(repository.findByCnpj(obj.getCnpj()) != null)
+			throw new ResourceDataConflit("O CNPJ " + obj.getCnpj() + " está em uso");
+		
 		revendedora.setNome(obj.getNome());
 		revendedora.setCnpj(obj.getCnpj());
 		revendedora.setBandeira(obj.getBandeira());		

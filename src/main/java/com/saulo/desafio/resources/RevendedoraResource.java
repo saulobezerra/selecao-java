@@ -20,6 +20,7 @@ import com.saulo.desafio.services.RevendedoraService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api( description = "Recursos para CRUD das revendedoras de combustíveis")
 @RestController
@@ -38,7 +39,9 @@ public class RevendedoraResource {
 	
 	@ApiOperation(value = "Consulta uma determinada revendedora pelo Id.")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Revendedora> findById(@PathVariable Long id) {
+	public ResponseEntity<Revendedora> findById(
+			@ApiParam(value="Número inteiro que represente o id da revendedora.", example = "1", required = true)
+			@PathVariable Long id) {
 		Revendedora obj = revendedoraService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -54,14 +57,19 @@ public class RevendedoraResource {
 	
 	@ApiOperation(value = "Exclui uma determinada revendedora.")
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity <Void> delete(@PathVariable Long id) {
+	public ResponseEntity <Void> delete(
+			@ApiParam(value="Número inteiro que represente o id da revendedora.", example = "1", required = true)
+			@PathVariable Long id) {
 		revendedoraService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@ApiOperation(value = "Atualiza os dados de uma revendedora.")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Revendedora> update(@PathVariable Long id, @RequestBody Revendedora revendedora) {
+	public ResponseEntity<Revendedora> update(
+			@ApiParam(value="Número inteiro que represente o id da revendedora.", example = "1", required = true)
+			@PathVariable Long id, 
+			@RequestBody Revendedora revendedora) {
 		revendedora = revendedoraService.update(id, revendedora);
 		return ResponseEntity.ok().body(revendedora);
 	}

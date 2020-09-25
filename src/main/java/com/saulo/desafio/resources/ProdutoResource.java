@@ -20,6 +20,7 @@ import com.saulo.desafio.services.ProdutoService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api( description = "Recursos para CRUD de produto (combustível)")
 @RestController
@@ -38,7 +39,9 @@ public class ProdutoResource {
 	
 	@ApiOperation(value = "Retorna um produto cadastrado especificado pelo Id.")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Produto> findById(@PathVariable Long id) {
+	public ResponseEntity<Produto> findById(
+			@ApiParam(value="Número inteiro que represente o id do produto.", example = "1", required = true)
+			@PathVariable Long id) {
 		Produto obj = produtoService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -54,14 +57,18 @@ public class ProdutoResource {
 	
 	@ApiOperation(value = "Exclui um produto determinado pelo Id.")
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity <Void> delete(@PathVariable Long id) {
+	public ResponseEntity <Void> delete(
+			@ApiParam(value="Número inteiro que represente o id do produto.", example = "1", required = true)
+			@PathVariable Long id) {
 		produtoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@ApiOperation(value = "Edita um determinado produto.")
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto) {
+	public ResponseEntity<Produto> update(
+			@ApiParam(value="Número inteiro que represente o id do produto.", example = "1", required = true)
+			@PathVariable Long id, @RequestBody Produto produto) {
 		produto = produtoService.update(id, produto);
 		return ResponseEntity.ok().body(produto);
 	}
