@@ -105,9 +105,9 @@ public class HistoricoPrecoCombustivelResource {
 	@GetMapping(value = "/todasInformacoesPorRegiao/page")
 	public ResponseEntity<Page<HistoricoPrecoCombustivel>> todasInformacoesPorRegiao(
 			@RequestParam(value="page", defaultValue = "0") Integer page, 
-			@RequestParam(value="page", defaultValue = "24") Integer linesPerPage, 
-			@RequestParam(value="page", defaultValue = "id") String orderBy,
-			@RequestParam(value="page", defaultValue = "ASC") String direction) {
+			@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue = "id") String orderBy,
+			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
 		return ResponseEntity.ok().body(hpcService.todasInformacoesPorRegiao(page, linesPerPage, orderBy, direction));
 	}
 	
@@ -115,9 +115,9 @@ public class HistoricoPrecoCombustivelResource {
 	@GetMapping(value = "/dadosAgrupadosPorDistribuidora/page")
 	public ResponseEntity<Page<HistoricoPrecoCombustivel>> dadosAgrupadosPorDistribuidora(
 			@RequestParam(value="page", defaultValue = "0") Integer page, 
-			@RequestParam(value="page", defaultValue = "24") Integer linesPerPage, 
-			@RequestParam(value="page", defaultValue = "id") String orderBy,
-			@RequestParam(value="page", defaultValue = "ASC") String direction) {
+			@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue = "id") String orderBy,
+			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
 		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDistribuidora(page, linesPerPage, orderBy, direction));
 	}
 	
@@ -125,9 +125,9 @@ public class HistoricoPrecoCombustivelResource {
 	@GetMapping(value = "/dadosAgrupadosPorDataColeta/page")
 	public ResponseEntity<Page<HistoricoPrecoCombustivel>> dadosAgrupadosPorDataColeta(
 			@RequestParam(value="page", defaultValue = "0") Integer page, 
-			@RequestParam(value="page", defaultValue = "24") Integer linesPerPage, 
-			@RequestParam(value="page", defaultValue = "id") String orderBy,
-			@RequestParam(value="page", defaultValue = "ASC") String direction) {
+			@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue = "id") String orderBy,
+			@RequestParam(value="direction", defaultValue = "ASC") String direction) {
 		return ResponseEntity.ok().body(hpcService.dadosAgrupadosPorDataColeta(page, linesPerPage, orderBy, direction));
 	}
 	
