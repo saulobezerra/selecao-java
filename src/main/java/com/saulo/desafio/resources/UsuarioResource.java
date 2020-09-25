@@ -34,7 +34,6 @@ public class UsuarioResource {
 	@GetMapping
 	public ResponseEntity<List<Usuario>> findAll() {
 		List<Usuario> list = service.findAll();
-		//List<Usuario> listDto = list.stream().map(usuario -> new Usuario(usuario)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -44,7 +43,6 @@ public class UsuarioResource {
 			@ApiParam(value="Número inteiro que represente o id do usuário.", example = "1", required = true) 
 			@PathVariable Long id) {
 		
-		//Usuario obj = new Usuario(service.findById(id));
 		Usuario obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -52,11 +50,10 @@ public class UsuarioResource {
 	@ApiOperation(value = "Cadastra um novo usuário")
 	@PostMapping
 	public ResponseEntity<Usuario> insert(
-			@ApiParam(value="Objeto json com dados do usuário. Obs: O atributo data segue o formato dd/mm/aaaa", required = true)
+			@ApiParam(required = true)
 			@RequestBody Usuario usuario) {
 		
-		//usuario = new Usuario(service.gravaUsuario(usuario));
-		usuario = service.gravaUsuario(usuario);
+		usuario = service.insert(usuario);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
 				buildAndExpand(usuario.getId()).toUri();
 		return ResponseEntity.created(uri).body(usuario);
@@ -80,7 +77,6 @@ public class UsuarioResource {
 			@ApiParam(value="Objeto json com dados do usuário.", required = true)
 			@RequestBody Usuario usuario) {
 		
-//		usuario = new Usuario(service.update(id, usuario));
 		usuario = service.update(id, usuario);
 		return ResponseEntity.ok().body(usuario);
 	}

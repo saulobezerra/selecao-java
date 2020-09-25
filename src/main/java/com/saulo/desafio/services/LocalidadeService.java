@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.saulo.desafio.entities.Localidade;
 import com.saulo.desafio.repositories.LocalidadeRepository;
+import com.saulo.desafio.services.exceptions.ResourceDataConflit;
+import com.saulo.desafio.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class LocalidadeService {
@@ -20,6 +22,9 @@ public class LocalidadeService {
 	}
 	
 	public Localidade insert(Localidade obj) {
+		if(repository.findByMunicipio(obj.getMunicipio().toUpperCase()) != null)
+			new ResourceDataConflit("O municipio " + obj.getMunicipio() + " já está cadastrado");
+		
 		obj.setMunicipio(obj.getMunicipio().toUpperCase());
 		obj.setEstado(obj.getEstado().toUpperCase());
 		obj.setRegiao(obj.getRegiao().toUpperCase());
@@ -32,7 +37,7 @@ public class LocalidadeService {
 
 	public Localidade findById(Long id) {
 		Optional<Localidade> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public void delete(Long id) {
@@ -46,6 +51,9 @@ public class LocalidadeService {
 	}
 	
 	private void udateData(Localidade localidade, Localidade obj) {
+		if(repository.findByMunicipio(obj.getMunicipio().toUpperCase()) != null)
+			new ResourceDataConflit("O municipio " + obj.getMunicipio() + " já está cadastrado");
+		
 		localidade.setEstado(obj.getEstado());
 		localidade.setMunicipio(obj.getMunicipio());
 		localidade.setRegiao(obj.getRegiao());		

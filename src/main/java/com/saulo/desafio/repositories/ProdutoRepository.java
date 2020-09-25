@@ -6,5 +6,5 @@ import com.saulo.desafio.entities.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 	
-	
+	Produto findByNome(String nome);
 }

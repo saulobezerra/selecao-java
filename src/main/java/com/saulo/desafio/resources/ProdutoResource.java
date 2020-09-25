@@ -18,8 +18,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.saulo.desafio.entities.Produto;
 import com.saulo.desafio.services.ProdutoService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@Api( description = "Recursos para CRUD de produto (combustível)")
 @RestController
 @RequestMapping(value = "/produtos")
 public class ProdutoResource {
@@ -34,12 +36,14 @@ public class ProdutoResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@ApiOperation(value = "Retorna um produto cadastrado especificado pelo Id.")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Produto> findById(@PathVariable Long id) {
 		Produto obj = produtoService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@ApiOperation(value = "Insere um novo produto")
 	@PostMapping
 	public ResponseEntity<Produto> insert(@RequestBody Produto produto) {
 		produto = produtoService.insert(produto);
@@ -48,12 +52,14 @@ public class ProdutoResource {
 		return ResponseEntity.created(uri).body(produto);
 	}
 	
+	@ApiOperation(value = "Exclui um produto determinado pelo Id.")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity <Void> delete(@PathVariable Long id) {
 		produtoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Edita um determinado produto.")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto) {
 		produto = produtoService.update(id, produto);

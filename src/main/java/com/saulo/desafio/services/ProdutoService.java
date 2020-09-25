@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.saulo.desafio.entities.Produto;
 import com.saulo.desafio.repositories.ProdutoRepository;
+import com.saulo.desafio.services.exceptions.ResourceDataConflit;
+import com.saulo.desafio.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ProdutoService {
@@ -20,6 +22,9 @@ public class ProdutoService {
 	}
 	
 	public Produto insert(Produto obj) {
+		if(repository.findByNome(obj.getNome().toUpperCase()) != null)
+			new ResourceDataConflit("Produto " + obj.getNome() + " já cadastrado");
+		
 		obj.setNome(obj.getNome().toUpperCase());
 		return repository.save(obj);
 	}
@@ -30,7 +35,7 @@ public class ProdutoService {
 
 	public Produto findById(Long id) {
 		Optional<Produto> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public void delete(Long id) {
@@ -44,6 +49,9 @@ public class ProdutoService {
 	}
 	
 	private void udateData(Produto produto, Produto obj) {
+		if(repository.findByNome(obj.getNome().toUpperCase()) != null)
+			new ResourceDataConflit("Produto " + obj.getNome() + " já cadastrado");
+		
 		produto.setNome(obj.getNome());
 		produto.setValorDeCompra(obj.getValorDeCompra());
 		produto.setValorDeVenda(obj.getValorDeVenda());		

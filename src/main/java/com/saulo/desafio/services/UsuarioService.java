@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.saulo.desafio.entities.Usuario;
 import com.saulo.desafio.repositories.UsuarioRepository;
+import com.saulo.desafio.services.exceptions.ResourceDataConflit;
+import com.saulo.desafio.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -22,12 +24,15 @@ public class UsuarioService {
 	}
 	
 	public Usuario insert(Usuario obj) {
+		if(repository.findByEmail(obj.getEmail()) != null)
+			new ResourceDataConflit("E-mail " + obj.getEmail() + "já cadastrado");
+		
 		return repository.save(obj);
 	}
 
 	public Usuario findById(Long id) {
 		Optional<Usuario> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public void delete(Long id) {
@@ -41,30 +46,13 @@ public class UsuarioService {
 	}
 	
 	private void udateData(Usuario usuario, Usuario obj) {
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//		usuario.setNome(obj.getNome());
-//		usuario.setSobrenome(obj.getSobrenome());
-//		usuario.setEmail(obj.getEmail());
-//		try {
+		if(repository.findByEmail(obj.getEmail()) != null)
+			new ResourceDataConflit(obj.getEmail());
+		
+		usuario.setEmail(obj.getEmail());
+		usuario.setNome(usuario.getNome());
+		usuario.setSobrenome(usuario.getSobrenome());
 		usuario.setDataNascimento(obj.getDataNascimento());
-//		} catch (ParseException e) {
-//			System.out.println("UpdateData - Erro no formato da data de nascimento: " + e.getMessage());
-//		}
-	}
-
-	public Usuario gravaUsuario(Usuario usuario) {
-//		Usuario user = new Usuario();
-//		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-//		Date dataNascimento;
-//		try {
-//			dataNascimento = formato.parse(dataParaString(usuario.getDataNascimento()));
-//			
-//			user = new Usuario(null, usuario.getNome(), usuario.getSobrenome(), usuario.getEmail(),
-//					dataNascimento);
-//		} catch (ParseException e) {
-//			System.out.println("Erro no formato da data de nascimento: " + e.getMessage());
-//		}
-		return insert(usuario);
 	}
 	
 	public String dataParaString(Date data) {

@@ -18,8 +18,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.saulo.desafio.entities.Revendedora;
 import com.saulo.desafio.services.RevendedoraService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@Api( description = "Recursos para CRUD das revendedoras de combustíveis")
 @RestController
 @RequestMapping(value = "/revendedora")
 public class RevendedoraResource {
@@ -27,19 +29,21 @@ public class RevendedoraResource {
 	@Autowired
 	private RevendedoraService revendedoraService;
 
-	@ApiOperation(value = "Retorna uma lista com todos os revendedoras cadastrados")
+	@ApiOperation(value = "Retorna uma lista com todos as revendedoras cadastrados")
 	@GetMapping
 	public ResponseEntity<List<Revendedora>> findAll() {
 		List<Revendedora> list = revendedoraService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@ApiOperation(value = "Consulta uma determinada revendedora pelo Id.")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Revendedora> findById(@PathVariable Long id) {
 		Revendedora obj = revendedoraService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@ApiOperation(value = "Cadastra uma nova revendedora.")
 	@PostMapping
 	public ResponseEntity<Revendedora> insert(@RequestBody Revendedora revendedora) {
 		revendedora = revendedoraService.insert(revendedora);
@@ -48,12 +52,14 @@ public class RevendedoraResource {
 		return ResponseEntity.created(uri).body(revendedora);
 	}
 	
+	@ApiOperation(value = "Exclui uma determinada revendedora.")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity <Void> delete(@PathVariable Long id) {
 		revendedoraService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Atualiza os dados de uma revendedora.")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Revendedora> update(@PathVariable Long id, @RequestBody Revendedora revendedora) {
 		revendedora = revendedoraService.update(id, revendedora);

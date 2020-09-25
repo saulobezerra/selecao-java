@@ -6,5 +6,5 @@ import com.saulo.desafio.entities.Localidade;
 
 public interface LocalidadeRepository extends JpaRepository<Localidade, Long> {
 	
-	
+	Localidade findByMunicipio(String nomeMunicipio);
 }

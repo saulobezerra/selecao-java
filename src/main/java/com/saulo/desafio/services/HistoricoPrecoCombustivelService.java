@@ -22,6 +22,7 @@ import com.saulo.desafio.entities.Localidade;
 import com.saulo.desafio.entities.Produto;
 import com.saulo.desafio.entities.Revendedora;
 import com.saulo.desafio.repositories.HistoricoPrecoCombustivelRepository;
+import com.saulo.desafio.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class HistoricoPrecoCombustivelService {
@@ -42,37 +43,13 @@ public class HistoricoPrecoCombustivelService {
 		return repository.findAll();
 	}
 	
-	public HistoricoPrecoCombustivel insert(HistoricoPrecoCombustivel obj) {
-//		System.out.println(obj.getDataDaColeta());
-//		if (obj.getLocalidade().getId() == null) {			
-//			Localidade local = localService.findByMunicipio(obj.getLocalidade().getMunicipio());
-//			if (local == null) {
-//				local = new Localidade(null, obj.getLocalidade().getRegiao(), obj.getLocalidade().getEstado(), obj.getLocalidade().getMunicipio());
-//				localService.insert(local);
-//			}
-//		}
-//		
-//		if (obj.getProduto().getId() == null) {
-//			Produto produto = prodService.findByNomeProduto(obj.getProduto().getNome());
-//			if (produto == null) {
-//				produto = new Produto(null, obj.getProduto().getNome(), obj.getProduto().getValorDeVenda(), obj.getProduto().getValorDeCompra());
-//				prodService.insert(produto);
-//			}
-//		}
-//		
-//		if (obj.getRevendedora().getId() == null) {			
-//			Revendedora rev = revService.findByNomeRevendedora(obj.getRevendedora().getNome());
-//			if (rev == null) {
-//				rev = new Revendedora(null, obj.getRevendedora().getNome(), obj.getRevendedora().getCnpj(), obj.getRevendedora().getBandeira());
-//				revService.insert(rev);
-//			}
-//		}		
+	public HistoricoPrecoCombustivel insert(HistoricoPrecoCombustivel obj) {	
 		return repository.save(obj);
 	}
 
 	public HistoricoPrecoCombustivel findById(Long id) {
 		Optional<HistoricoPrecoCombustivel> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public void delete(Long id) {

@@ -18,6 +18,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.saulo.desafio.entities.Localidade;
 import com.saulo.desafio.services.LocalidadeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api( description = "Recursos para CRUD de revendedora de combustível")
 @RestController
 @RequestMapping(value = "/localidades")
 public class LocalidadeResource {
@@ -25,18 +29,21 @@ public class LocalidadeResource {
 	@Autowired
 	private LocalidadeService localidadeService;
 
+	@ApiOperation(value = "Retorna uma lista com todas as localidades das distribuidoras")
 	@GetMapping
 	public ResponseEntity<List<Localidade>> findAll() {
 		List<Localidade> list = localidadeService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@ApiOperation(value = "Retorna um localidade especificada pelo Id")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Localidade> findById(@PathVariable Long id) {
 		Localidade obj = localidadeService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@ApiOperation(value = "Insere uma nova localidade")
 	@PostMapping
 	public ResponseEntity<Localidade> insert(@RequestBody Localidade localidade) {
 		localidade = localidadeService.insert(localidade);
@@ -45,12 +52,14 @@ public class LocalidadeResource {
 		return ResponseEntity.created(uri).body(localidade);
 	}
 	
+	@ApiOperation(value = "Exclui uma localidade")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity <Void> delete(@PathVariable Long id) {
 		localidadeService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@ApiOperation(value = "Edita uma localidade")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Localidade> update(@PathVariable Long id, @RequestBody Localidade localidade) {
 		localidade = localidadeService.update(id, localidade);
