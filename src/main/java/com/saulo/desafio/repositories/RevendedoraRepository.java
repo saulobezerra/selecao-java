@@ -6,6 +6,5 @@ import com.saulo.desafio.entities.Revendedora;
 
 public interface RevendedoraRepository extends JpaRepository<Revendedora, Long> {
 	
-	Revendedora findByNome(String nomeRevendedora);
 	
 }

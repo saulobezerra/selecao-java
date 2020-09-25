@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.saulo.desafio.dtos.ValorMedioPorBandeiraDTO;
+import com.saulo.desafio.dtos.ValorMedioPorMunicipioDTO;
 import com.saulo.desafio.entities.HistoricoPrecoCombustivel;
 import com.saulo.desafio.services.HistoricoPrecoCombustivelService;
 
@@ -101,13 +103,13 @@ public class HistoricoPrecoCombustivelResource {
 	
 	@ApiOperation(value = "Retorna o valor médio do valor da compra e do valor da venda por município")
 	@GetMapping(value = "/mediaValorCompraEVendaPorMunicipio")
-	public ResponseEntity<List<String>> mediaValorCompraEVendaPorMunicipio() {
+	public ResponseEntity<List<ValorMedioPorMunicipioDTO>> mediaValorCompraEVendaPorMunicipio() {
 		return ResponseEntity.ok().body(hpcService.mediaValorCompraEVendaPorMunicipio());
 	}
 	
 	@ApiOperation(value = "Retorna o valor médio do valor da compra e do valor da venda por bandeira")
 	@GetMapping(value = "/mediaValorCompraEVendaPorBandeira")
-	public ResponseEntity<List<String>> mediaValorCompraEVendaPorBandeira() {
+	public ResponseEntity<List<ValorMedioPorBandeiraDTO>> mediaValorCompraEVendaPorBandeira() {
 		return ResponseEntity.ok().body(hpcService.mediaValorCompraEVendaPorBandeira());
 	}
 

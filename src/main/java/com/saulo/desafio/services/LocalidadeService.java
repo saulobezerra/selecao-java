@@ -20,17 +20,19 @@ public class LocalidadeService {
 	}
 	
 	public Localidade insert(Localidade obj) {
+		obj.setMunicipio(obj.getMunicipio().toUpperCase());
+		obj.setEstado(obj.getEstado().toUpperCase());
+		obj.setRegiao(obj.getRegiao().toUpperCase());
 		return repository.save(obj);
+	}
+	
+	public void insertAll(List<Localidade> localidades) {
+		repository.saveAll(localidades);
 	}
 
 	public Localidade findById(Long id) {
 		Optional<Localidade> obj = repository.findById(id);
 		return obj.get();
-	}
-	
-	public Localidade findByMunicipio(String nomeMunicipio) {
-		Localidade obj = repository.findByMunicipio(nomeMunicipio);
-		return obj;
 	}
 
 	public void delete(Long id) {
@@ -49,11 +51,5 @@ public class LocalidadeService {
 		localidade.setRegiao(obj.getRegiao());		
 	}
 
-//	public Localidade gravaLocalidade(Localidade localidade) {
-//		Localidade rev = new Localidade();
-//		rev = new Localidade(null, localidade.getNome(), localidade.getCnpj(), localidade.getBandeira());		
-//		return insert(rev);
-//	}
-	
 }
 

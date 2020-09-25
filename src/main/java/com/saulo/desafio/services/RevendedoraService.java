@@ -20,17 +20,18 @@ public class RevendedoraService {
 	}
 	
 	public Revendedora insert(Revendedora obj) {
+		obj.setBandeira(obj.getBandeira().toUpperCase());
+		obj.setNome(obj.getNome().toUpperCase());
 		return repository.save(obj);
+	}
+	
+	public void insertAll(List<Revendedora> revendedoras) {
+		repository.saveAll(revendedoras);
 	}
 
 	public Revendedora findById(Long id) {
 		Optional<Revendedora> obj = repository.findById(id);
 		return obj.get();
-	}
-	
-	public Revendedora findByNomeRevendedora(String nomeRevendedora) {
-		Revendedora obj = repository.findByNome(nomeRevendedora);
-		return obj;
 	}
 
 	public void delete(Long id) {
@@ -48,12 +49,6 @@ public class RevendedoraService {
 		revendedora.setCnpj(obj.getCnpj());
 		revendedora.setBandeira(obj.getBandeira());		
 	}
-
-//	public Revendedora gravaRevendedora(Revendedora revendedora) {
-//		Revendedora rev = new Revendedora();
-//		rev = new Revendedora(null, revendedora.getNome(), revendedora.getCnpj(), revendedora.getBandeira());		
-//		return insert(rev);
-//	}
 	
 }
 

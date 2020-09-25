@@ -20,17 +20,17 @@ public class ProdutoService {
 	}
 	
 	public Produto insert(Produto obj) {
+		obj.setNome(obj.getNome().toUpperCase());
 		return repository.save(obj);
+	}
+	
+	public void insertAll(List<Produto> produtos) {
+		repository.saveAll(produtos);
 	}
 
 	public Produto findById(Long id) {
 		Optional<Produto> obj = repository.findById(id);
 		return obj.get();
-	}
-	
-	public Produto findByNomeProduto(String nomeProduto) {
-		Produto obj = repository.findByNome(nomeProduto);
-		return obj;
 	}
 
 	public void delete(Long id) {
@@ -48,12 +48,6 @@ public class ProdutoService {
 		produto.setValorDeCompra(obj.getValorDeCompra());
 		produto.setValorDeVenda(obj.getValorDeVenda());		
 	}
-
-//	public Produto gravaProduto(Produto produto) {
-//		Produto rev = new Produto();
-//		rev = new Produto(null, produto.getNome(), produto.getCnpj(), produto.getBandeira());		
-//		return insert(rev);
-//	}
 	
 }
 

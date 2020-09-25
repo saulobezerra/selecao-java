@@ -44,7 +44,7 @@ public class TesteConfig implements CommandLineRunner {
 		Produto p1 = new Produto(null, "ALCOOL", 3.20, 3.50);
 		Produto p2 = new Produto(null, "GASOLINA", 3.80, 4.30);
 		Produto p3 = new Produto(null, "GNV", 2.20, 2.50);
-		prodRepositorio.saveAll(Arrays.asList(p1, p2, p3));
+		prodRepositorio.saveAll(Arrays.asList(p1,p2,p3));
 		
 		Revendedora rev1 = new Revendedora(null, "REVENDEDORA 1", "012345678901234", "RAIZEN");
 		Revendedora rev2 = new Revendedora(null, "REVENDEDORA 2", "012345678901235", "PETROBRAS");

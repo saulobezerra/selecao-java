@@ -42,7 +42,6 @@ public class ProdutoResource {
 	
 	@PostMapping
 	public ResponseEntity<Produto> insert(@RequestBody Produto produto) {
-//		produto = produto.gravaUsuario(produto);
 		produto = produtoService.insert(produto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
 				buildAndExpand(produto.getId()).toUri();
@@ -57,7 +56,6 @@ public class ProdutoResource {
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Produto> update(@PathVariable Long id, @RequestBody Produto produto) {
-//		usuario = new Usuario(service.update(id, usuario));
 		produto = produtoService.update(id, produto);
 		return ResponseEntity.ok().body(produto);
 	}
