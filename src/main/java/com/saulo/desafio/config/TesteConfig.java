@@ -35,9 +35,9 @@ public class TesteConfig implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		
+		/*
 		Localidade local1 = new Localidade(null, "NE", "PB", "JOAO PESSOA");
-		Localidade local2 = new Localidade(null, "se", "sp", "sao paulo");
+		Localidade local2 = new Localidade(null, "SE", "SP", "SAO PAULO");
 		Localidade local3 = new Localidade(null, "N", "AM", "MANAUS");
 		localRepositorio.saveAll(Arrays.asList(local1, local2, local3));
 		
@@ -55,7 +55,7 @@ public class TesteConfig implements CommandLineRunner {
 		HistoricoPrecoCombustivel hpc2 = new HistoricoPrecoCombustivel(null, new Date(), local2, p3, rev3);
 		HistoricoPrecoCombustivel hpc3 = new HistoricoPrecoCombustivel(null, new Date(), local3, p2, rev2);
 		hpcRepositorio.saveAll(Arrays.asList(hpc1, hpc2, hpc3));
-		
+		*/
 	}
 
 }

@@ -22,7 +22,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api( description = "Recursos para CRUD das revendedoras de combustíveis")
+@Api( description = "Recursos para CRUD das revendedoras (distribuidora) de combustíveis")
 @RestController
 @RequestMapping(value = "/revendedora")
 public class RevendedoraResource {

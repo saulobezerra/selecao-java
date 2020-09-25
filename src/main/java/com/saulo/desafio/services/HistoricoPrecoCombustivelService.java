@@ -75,7 +75,7 @@ public class HistoricoPrecoCombustivelService {
 	}
 	
 	public Double mediaDePrecoBaseadoNoMunicipio(String nomeMunicipio) {
-		return repository.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio);
+		return repository.mediaDePrecoBaseadoNoMunicipio(nomeMunicipio.toUpperCase());
 	}
 	
 	public List<HistoricoPrecoCombustivel> todasInformacoesPorRegiao () {
